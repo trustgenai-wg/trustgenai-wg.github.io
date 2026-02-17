@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IEEE P7022 | Trustworthy Enterprise GenAI Standard</title>
+    <meta name="description" content="IEEE P7022: Specifying the engineering audit layer and conformance evidence criteria for Enterprise Generative and Agentic AI.">
+    <style>
+        /* --- EXECUTIVE DESIGN SYSTEM (MCKINSEY / IEEE STYLE - v21) --- */
+        :root {
+            --bg-body: #ffffff;
+            --bg-offset: #f7f9fa;
+            --bg-dark: #0f1115;
+            --bg-panel: #ffffff;
+            
+            --text-primary: #1a1a1a;
+            --text-secondary: #595959;
+            --text-tertiary: #767676;
+            --text-inverse: #ffffff;
+            --text-inverse-muted: #a0a0a0;
+            
+            /* DEEP NAVY AUTHORITY COLOR (v18 spec) */
+            --accent: #002855; 
+            --accent-dark: #001f42;
+            --accent-subtle: rgba(0, 40, 85, 0.05);
+            
+            --border-light: #e0e0e0;
+            --border-strong: #d0d0d0;
+            --border-focus: #002855;
+            
+            --radius-sm: 2px;
+            --radius-md: 4px;
+            
+            --font-main: "Helvetica Neue", Helvetica, Arial, -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+            
+            --shadow-card: 0 4px 12px rgba(0,0,0,0.06);
+            --shadow-float: 0 10px 30px rgba(0,0,0,0.08);
+            
+            --error-bg: #fdf2f2;
+            --error-text: #c53030;
+            --error-border: #fc8181;
+        }
+
+        /* --- RESET & BASE --- */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        html { 
+            font-size: 16px; 
+            scroll-behavior: smooth;
+        }
+        
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+        }
+
+        body {
+            font-family: var(--font-main);
+            color: var(--text-primary);
+            background: var(--bg-body);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a { text-decoration: none; color: inherit; transition: color 0.2s ease; }
+        
+        /* Accessibility: Focus Visible */
+        a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { 
+            outline: 2px solid var(--accent); outline-offset: 2px; 
+        }
+
+        /* --- TYPOGRAPHY --- */
+        h1, h2, h3, h4, h5 { font-weight: 700; letter-spacing: -0.02em; line-height: 1.15; color: var(--text-primary); }
+        
+        /* H1: Primary text color for executive feel, not accent color */
+        h1 { font-size: clamp(2.5rem, 5vw, 3.5rem); margin-bottom: 1.5rem; letter-spacing: -0.03em; color: var(--text-primary); }
+        h2 { font-size: 2rem; margin-bottom: 1.5rem; letter-spacing: -0.025em; border-bottom: 2px solid var(--border-light); padding-bottom: 0.5rem; display: inline-block; }
+        h3 { font-size: 1.25rem; margin-bottom: 0.75rem; font-weight: 600; }
+        h4 { 
+            font-size: 0.75rem; 
+            text-transform: uppercase; 
+            letter-spacing: 0.08em; 
+            color: var(--text-secondary); 
+            margin-bottom: 0.75rem; 
+            font-weight: 600;
+        }
+
+        p { margin-bottom: 1.25rem; color: var(--text-secondary); max-width: 70ch; }
+        .lead { font-size: 1.35rem; font-weight: 300; line-height: 1.5; color: var(--text-primary); max-width: 68ch; margin-bottom: 2rem; }
+        
+        strong { font-weight: 600; color: var(--text-primary); }
+        .text-small { font-size: 0.875rem; color: var(--text-secondary); }
+
+        /* --- UTILITIES --- */
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+        .section-padding { padding: 5rem 0; }
+        .bg-offset { background-color: var(--bg-offset); }
+        .bg-dark { background-color: var(--bg-dark); color: var(--text-inverse); }
+        
+        .bg-dark h2, .bg-dark h3 { color: #ffffff; }
+        .bg-dark p, .bg-dark .text-inverse-muted { color: var(--text-inverse-muted); }
+
+        .text-center { text-align: center; }
+        .hidden { display: none !important; }
+        .grid { display: grid; gap: 2rem; }
+        
+        .divider { height: 1px; background: var(--border-light); width: 100%; margin: 4rem 0; }
+        .divider-short { width: 4rem; height: 3px; background: var(--accent); margin-bottom: 2rem; }
+
+        /* --- COMPONENTS: BUTTONS --- */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 2rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+            text-align: center;
+            letter-spacing: 0.02em;
+        }
+        
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            background-color: var(--border-light);
+            color: var(--text-secondary);
+        }
+        
+        .btn-primary { background: var(--accent); color: white; }
+        .btn-primary:hover:not(:disabled) { background: var(--accent-dark); transform: translateY(-1px); }
+        
+        .btn-secondary { background: transparent; border-color: currentColor; color: var(--text-primary); }
+        .btn-secondary:hover:not(:disabled) { background: var(--bg-offset); border-color: var(--accent); color: var(--accent); }
+        
+        .btn-link {
+            background: none; border: none; padding: 0;
+            color: var(--accent); text-decoration: underline; cursor: pointer;
+            font-size: inherit; font-family: inherit;
+            display: inline; margin-top: 1rem;
+        }
+
+        /* --- DISCLAIMER BAR --- */
+        .disclaimer-banner {
+            background: var(--bg-offset);
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            padding: 0.75rem 0;
+            text-align: center;
+            border-bottom: 1px solid var(--border-light);
+            font-weight: 500;
+            letter-spacing: 0.02em;
+        }
+
+        /* --- HEADER --- */
+        header {
+            position: sticky; top: 0; z-index: 1000;
+            background: rgba(255,255,255,0.98);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-light);
+            padding: 1.25rem 0;
+        }
+        .header-inner { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-weight: 800; font-size: 1.25rem; letter-spacing: -0.04em; color: var(--text-primary); }
+        .logo span { color: var(--accent); }
+        
+        .nav-links { display: flex; gap: 2rem; align-items: center; }
+        .nav-link { font-size: 0.9rem; font-weight: 500; color: var(--text-secondary); position: relative; transition: color 0.2s; }
+        .nav-link:hover { color: var(--accent); }
+
+        /* --- HERO --- */
+        .hero { padding: 6rem 0 4rem; }
+        
+        /* EXECUTIVE MEMO STYLE FOMO BOX (Grey/Navy) */
+        .fomo-box {
+            background: #f0f2f5;
+            border-left: 4px solid var(--accent);
+            padding: 0.75rem 1.25rem;
+            margin-bottom: 2rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+            display: inline-block;
+            font-size: 0.9rem;
+        }
+
+        /* EXECUTIVE MICRO STRIP */
+        .hero-micro-strip {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+        .hero-micro-strip span { display: flex; align-items: center; }
+        .hero-micro-strip span::before {
+            content: "";
+            display: inline-block;
+            width: 6px; height: 6px; background: var(--accent); border-radius: 50%;
+            margin-right: 0.5rem; opacity: 0.6;
+        }
+
+        /* --- COALITION GRID --- */
+        .coalition-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .coalition-list li { margin-bottom: 0.5rem; display: flex; align-items: center; font-size: 0.95rem; color: var(--text-secondary); }
+        .coalition-list li::before { content: "•"; color: var(--accent); margin-right: 0.5rem; font-weight: bold; }
+
+        .anchor-strategy {
+            background: var(--bg-offset);
+            border: 1px solid var(--border-strong);
+            padding: 1.5rem;
+            margin-top: 3rem;
+            text-align: center;
+            font-weight: 500;
+            color: var(--accent);
+        }
+
+        /* --- ARCHITECTURE VISUALIZATION --- */
+        .arch-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            max-width: 600px;
+            margin: 3rem auto;
+        }
+        .arch-layer {
+            padding: 1.25rem;
+            border: 1px solid var(--border-light);
+            text-align: center;
+            font-size: 0.9rem;
+            font-weight: 600;
+            background: white;
+            color: var(--text-secondary);
+            position: relative;
+        }
+        .arch-layer.highlight {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+            box-shadow: 0 4px 12px rgba(0, 40, 85, 0.2);
+            z-index: 2;
+            transform: scale(1.02);
+        }
+        .arch-layer::after {
+            content: "↓";
+            position: absolute;
+            bottom: -18px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--border-light);
+            font-size: 0.8rem;
+            font-weight: 300;
+        }
+        .arch-layer:last-child::after { display: none; }
+        .arch-layer span { display: block; font-size: 0.75rem; font-weight: 400; opacity: 0.8; margin-top: 0.25rem; }
+
+        /* --- SCOPE & EVIDENCE --- */
+        .evidence-table { width: 100%; border-collapse: collapse; margin-top: 2rem; background: white; border: 1px solid var(--border-light); }
+        .evidence-table th, .evidence-table td { text-align: left; padding: 1rem; border-bottom: 1px solid var(--border-light); font-size: 0.95rem; }
+        .evidence-table th { background: var(--bg-offset); font-weight: 600; color: var(--accent); }
+        
+        .code-example {
+            background: #1e1e1e;
+            border: 1px solid #333;
+            border-radius: 4px;
+            padding: 1.5rem;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: #d4d4d4;
+            overflow-x: auto;
+            margin-top: 0.5rem;
+            line-height: 1.5;
+        }
+        .key { color: #9cdcfe; }
+        .string { color: #ce9178; }
+        .number { color: #b5cea8; }
+        .boolean { color: #569cd6; }
+        .alert { color: #f44336; font-weight: bold; text-decoration: underline; text-decoration-style: dashed; }
+
+        /* --- TIERS --- */
+        .tiers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .tier-card {
+            border: 1px solid var(--border-light);
+            padding: 2rem;
+            background: white;
+            position: relative;
+        }
+        .tier-card.featured { border: 2px solid var(--accent); }
+        .tier-card.featured::after {
+            content: "Technical Track";
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: var(--accent);
+            color: white;
+            font-size: 0.7rem;
+            padding: 4px 12px;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        /* --- FORMS --- */
+        .form-section { background: var(--bg-offset); border-top: 1px solid var(--border-light); }
+        .form-container {
+            max-width: 650px;
+            margin: 0 auto;
+            background: white;
+            padding: 3rem;
+            border: 1px solid var(--border-light);
+            box-shadow: var(--shadow-card);
+        }
+        .form-switcher { display: flex; border-bottom: 1px solid var(--border-light); margin-bottom: 2rem; }
+        .switch-btn {
+            flex: 1; background: none; border: none; padding: 1rem; font-weight: 600; color: var(--text-secondary); cursor: pointer;
+            border-bottom: 2px solid transparent; transition: all 0.2s;
+        }
+        .switch-btn.active { color: var(--accent); border-bottom-color: var(--accent); background: rgba(0, 40, 85, 0.05); }
+        
+        .form-group { margin-bottom: 1.5rem; }
+        label { display: block; margin-bottom: 0.5rem; font-size: 0.85rem; font-weight: 600; color: var(--text-primary); }
+        label.required::after { content: " *"; color: var(--accent); }
+        
+        input[type="text"], input[type="email"], select, textarea {
+            width: 100%; padding: 0.8rem; border: 1px solid var(--border-strong); border-radius: var(--radius-sm);
+            font-family: inherit; font-size: 0.95rem; transition: border-color 0.2s;
+        }
+        input:focus, select:focus, textarea:focus { border-color: var(--border-focus); outline: none; }
+        
+        .checkbox-grid { display: grid; grid-template-columns: 1fr; gap: 0.75rem; margin-top: 0.5rem; }
+        .checkbox-item { display: flex; align-items: flex-start; gap: 0.75rem; font-size: 0.9rem; color: var(--text-secondary); cursor: pointer; }
+        .checkbox-item input { margin-top: 0.25rem; }
+        
+        .hp-field { 
+            opacity: 0; 
+            position: absolute; 
+            top: 0; left: 0; 
+            height: 0; width: 0; 
+            z-index: -1; 
+        }        
+        .success-message, .error-message { padding: 1.5rem; margin-top: 1.5rem; text-align: center; border-radius: var(--radius-sm); font-size: 0.9rem; }
+        .success-message { background: #effcf6; color: #1e4620; border: 1px solid #c3e6cb; }
+        .error-message { background: var(--error-bg); color: var(--error-text); border: 1px solid var(--error-border); }
+        
+        .privacy-note { font-size: 0.75rem; color: #888; margin-top: 1rem; text-align: center; }
+
+        /* --- FOOTER --- */
+        footer { padding: 5rem 0; font-size: 0.85rem; color: #888; border-top: 1px solid #222; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 4rem; }
+        footer h5 { color: white; margin-bottom: 1.5rem; font-size: 0.9rem; letter-spacing: 0.05em; }
+        .footer-note { display: block; margin-bottom: 0.75rem; line-height: 1.5; color: white; }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .hero { padding: 4rem 0 3rem; }
+            .lead { font-size: 1.15rem; }
+            .fomo-box { font-size: 0.85rem; }
+            .hero-micro-strip { flex-direction: column; gap: 0.5rem; }
+            .coalition-grid, .tiers-grid { grid-template-columns: 1fr; }
+            .header-inner { flex-direction: column; gap: 1rem; }
+            .nav-links { gap: 1rem; font-size: 0.85rem; }
+            .form-container { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- DISCLAIMER BAR -->
+    <div class="disclaimer-banner">
+        <div class="container">
+            Proposed IEEE Standard P7022 (Submitted for NesCom approval). Participation subject to IEEE SA policies.
+        </div>
+    </div>
+
+    <!-- HEADER -->
+    <header>
+        <div class="container header-inner">
+            <a href="#" class="logo">IEEE <span>P7022</span></a>
+            <nav class="nav-links">
+                <a href="#coalition" class="nav-link">Coalition</a>
+                <a href="#architecture" class="nav-link">Architecture</a>
+                <a href="#evidence" class="nav-link">Evidence</a>
+                <a href="#engage" class="btn btn-primary btn-sm cta-trigger" data-target="register">Register Interest</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="container">
+            <div class="fomo-box">
+                Standards development establishes common technical baselines. Participation enables contribution of operational perspectives within the IEEE SA consensus process.
+            </div>
+
+            <h1>From Principles to Proof: The Engineering Standard for Auditable AI.</h1>
+            <p class="lead">
+                IEEE P7022 defines the ‘SHALL’ requirements that translate ‘Trustworthy AI’ principles into demonstrable engineering evidence.
+            </p>
+            
+            <div style="display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap;">
+                <button class="btn btn-primary cta-trigger" data-target="register">Register Interest to Participate</button>
+                <button class="btn btn-secondary cta-trigger" data-target="call">Request Introductory Discussion</button>
+            </div>
+            <p style="font-size: 0.75rem; color: var(--text-tertiary); margin-top: 0.75rem; font-style: italic;">
+                * Formal Working Group kickoff is scheduled for April 2026, subject to NesCom approval (expected by March 2026).
+            </p>
+            <!-- Executive Micro Strip -->
+            <div class="hero-micro-strip">
+                <span>Engineering criteria for conformance evaluation</span>
+                <span>Audit evidence specifications</span>
+                <span>Agentic system traceability</span>
+            </div>
+            
+            <!-- Board Level Summary -->
+            <div style="margin-top: 3rem; padding: 1.5rem; background: var(--bg-offset); border: 1px solid var(--border-light); border-radius: var(--radius-md);">
+                <h4 style="color: var(--accent); margin-bottom: 0.5rem;">Board-Level 30-second Summary</h4>
+                <p style="font-size: 0.95rem; margin-bottom: 0;">
+                    <strong>Problem:</strong> Current AI governance (ISO 42001, NIST) is high-level process. It lacks engineering specificity for GenAI errors.<br>
+                    <strong>Solution:</strong> P7022 standardizes trace artifacts (logs, metadata) to facilitate documented auditability and support alignment with regulatory risk frameworks.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- COALITION SECTION -->
+    <section id="coalition" class="section-padding bg-offset">
+        <div class="container">
+            <div class="divider-short"></div>
+            <h2>Stakeholder Representation</h2>
+            <p>Pre-approval outreach to ensure balanced representation across all interest categories.</p>
+            
+            <div class="coalition-grid">
+                <div>
+                    <h4 style="border-bottom: 1px solid var(--border-strong); padding-bottom: 0.5rem;">Seeking Anchor Pilots In</h4>                    <ul class="coalition-list" style="list-style: none;">
+                        <li>Finance & Banking</li>
+                        <li>Insurance (Liability & Carrier)</li>
+                        <li>Healthcare & Life Sciences</li>
+                        <li>Defense & Aerospace</li>
+                        <li>Public Sector & GovTech</li>
+                        <li>Manufacturing & Logistics</li>
+                        <li>SaaS / ERP Vendors</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="border-bottom: 1px solid var(--border-strong); padding-bottom: 0.5rem;">Required Functions</h4>
+                    <ul class="coalition-list" style="list-style: none;">
+                        <li>CIO / CTO / Chief Data Officer</li>
+                        <li>Chief Risk Officer (CRO)</li>
+                        <li>Internal Audit & Assurance</li>
+                        <li>Big-4 Assurance Partners</li>
+                        <li>Product Security & Trust</li>
+                        <li>Enterprise Architecture</li>
+                        <li>Legal & Compliance Counsel</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="anchor-strategy">
+                The working group strategy includes technical feasibility pilots involving audit and enterprise participants.
+            </div>
+        </div>
+    </section>
+
+    <!-- ARCHITECTURE VISUALIZATION -->
+    <section id="architecture" class="section-padding">
+        <div class="container">
+            <div class="text-center" style="margin-bottom: 3rem;">
+                <h2>The Standards Stack</h2>
+                <p style="margin: 0 auto;">Where IEEE P7022 fits in the global regulatory landscape.</p>
+            </div>
+            
+            <div class="arch-stack">
+                <div class="arch-layer">
+                    EU AI Act / Regulations
+                    <span>The Law: Mandates transparency and risk management.</span>
+                </div>
+                <div class="arch-layer">
+                    ISO 42001
+                    <span>The Management System: Policies, roles, and lifecycle processes.</span>
+                </div>
+                <div class="arch-layer">
+                    NIST AI RMF
+                    <span>The Framework: Mapping, measuring, and managing risk categories.</span>
+                </div>
+                <div class="arch-layer highlight">
+                    IEEE P7022
+                    <span>The Engineering Standard: Technical controls, log formats, and audit trails.</span>
+                </div>
+                <div class="arch-layer" style="border-style: dashed;">
+                    Conformance Evidence Bundle
+                    <span>The Output: The actual files handed to the auditor.</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- EVIDENCE SECTION -->
+    <section id="evidence" class="section-padding bg-offset">
+        <div class="container">
+            <div class="divider-short"></div>
+            <h2>Technical Focus: Forensic Evidence</h2>
+            <p>We move beyond "accuracy metrics" to forensic logs of failures. P7022 standardizes the JSON schema for failure containment, supporting evaluation of control efficacy.</p>
+
+            <span class="text-small" style="display:block; margin-top: 1rem; font-family:var(--font-mono); font-size:0.75rem; color:#888;">Illustrative (Non-normative)</span>
+            <div class="code-example">
+<pre>{
+  <span class="key">"trace_id"</span>: <span class="string">"evt_77a-9f2-b11"</span>,
+  <span class="key">"timestamp"</span>: <span class="string">"2026-03-14T09:22:15.04Z"</span>,
+  <span class="key">"model_vendor"</span>: <span class="string">"Vendor_X"</span>,
+  <span class="key">"model_version"</span>: <span class="string">"v3.5-turbo-instruct"</span>,
+  <span class="key">"evidence_bundle_id"</span>: <span class="string">"bndl_8829_alpha"</span>,
+  <span class="key">"integrity_check"</span>: {
+    <span class="key">"status"</span>: <span class="string">"ESCALATED"</span>,
+    <span class="key">"reason"</span>: <span class="string">"UNSUPPORTED_CLAIM_DETECTED"</span>
+  },
+  <span class="key">"attribution_map"</span>: {
+    <span class="key">"claim_id"</span>: <span class="string">"c_001"</span>,
+    <span class="key">"generated_text"</span>: <span class="string">"Q3 revenue increased by 12%."</span>,
+    <span class="key">"retrieval_context_hash"</span>: <span class="string">"sha256:7f83b165..."</span>,
+    <span class="key">"source_grounding_score"</span>: <span class="number">0.12</span>,
+    <span class="key">"threshold"</span>: <span class="number">0.85</span>
+  },
+  <span class="key">"decision_latency_ms"</span>: <span class="number">450</span>,
+  <span class="key">"action_taken"</span>: <span class="alert">"BLOCK_OUTPUT_Ref_Policy_7022_Sec_4.2"</span>
+}</pre>
+            </div>
+
+            <h3 style="margin-top: 3rem;">Controls & Evidence Mapping</h3>
+            <p>Standardized artifacts for deployment authorization.</p>
+            <div style="overflow-x: auto; -webkit-overflow-scrolling: touch; border: 1px solid var(--border-light); border-radius: var(--radius-sm);">
+                <table class="evidence-table" style="border: none; margin: 0;">                <thead>
+                    <tr>
+                        <th width="40%">Control Requirement</th>
+                        <th>Standardized Artifact (P7022)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Retrieval Grounding (RAG)</td>
+                        <td>Context-Attribution Map (JSON)</td>
+                    </tr>
+                    <tr>
+                        <td>Action Traceability (Agents)</td>
+                        <td>Immutable Trace Logs (tamper-evident integrity)</td>
+                    </tr>
+                    <tr>
+                        <td>Low-Confidence Escalation</td>
+                        <td>Escalation Event Logs</td>
+                    </tr>
+                    <tr>
+                        <td>HITL Verification</td>
+                        <td>Approval Metadata (TxID)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        </div>
+    </section>
+
+    <!-- TIMELINE (Condensed) -->
+    <section class="section-padding">
+        <div class="container">
+            <h2>Scope & Timeline</h2>
+            <div class="grid" style="grid-template-columns: 1fr 1fr; gap: 4rem; margin-top: 2rem;">
+                <div>
+                    <h3>Standardization Scope</h3>
+                    <ul style="list-style: none; color: var(--text-secondary);">
+                        <li style="margin-bottom:0.5rem;"><strong>Taxonomy:</strong> Definitions for failure modes (unsupported claims, source amnesia).</li>
+                        <li style="margin-bottom:0.5rem;"><strong>Measurement:</strong> Engineering metrics for grounding and fidelity.</li>
+                        <li style="margin-bottom:0.5rem;"><strong>Controls:</strong> Technical guardrails (input/output/process).</li>
+                        <li style="margin-bottom:0.5rem;"><strong>Evidence:</strong> The artifact schema for audit.</li>
+                    </ul>
+                    <p class="text-small" style="margin-top: 1rem;">Intended Domains: ERP, CRM, HRIS, Finance, Ops.</p>
+                </div>
+                <div>
+                    <h3>Projected Timeline</h3>
+                    <ul style="list-style: none; color: var(--text-secondary);">
+                        <li style="margin-bottom:0.5rem;"><strong>Mar 2026:</strong> NesCom Vote (Pending)</li>
+                        <li style="margin-bottom:0.5rem;"><strong>Apr/May 2026:</strong> Working Group Kickoff</li>
+                        <li style="margin-bottom:0.5rem;"><strong>2026–2028:</strong> Drafting & Anchor Piloting</li>
+                        <li style="margin-bottom:0.5rem;"><strong>Jun 2028:</strong> Initial Ballot</li>
+                        <li style="margin-bottom:0.5rem;"><strong>Dec 2028:</strong> RevCom Approval</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ENGAGEMENT FORMS -->
+    <section id="engage" class="section-padding form-section">
+        <div class="container">
+            <div class="text-center" style="margin-bottom: 2rem;">
+                <h2>Engagement Models</h2>
+                <p>Participation is open to all materially interested parties and follows IEEE SA consensus processes.</p>
+            </div>
+            
+            <div class="tiers-grid" style="margin-bottom: 4rem;">
+                <div class="tier-card featured">
+                    <h3>Tier 1: Active Drafting</h3>
+                    <div style="font-style: italic; color: var(--text-secondary); margin-bottom: 1rem;">2–4 hrs/week</div>
+                    <ul class="coalition-list" style="list-style: none;">
+                        <li>Participation in development of draft criteria through IEEE SA consensus process.</li>
+                        <li>Voting rights subject to IEEE SA policies.</li>
+                        <li>Author credit on the standard.</li>
+                    </ul>
+                </div>
+                <div class="tier-card">
+                    <h3>Tier 2: Advisory / Review</h3>
+                    <div style="font-style: italic; color: var(--text-secondary); margin-bottom: 1rem;">1 hr/month</div>
+                    <ul class="coalition-list" style="list-style: none;">
+                        <li>Visibility into draft development progress.</li>
+                        <li>Opportunity to provide comments during draft development.</li>
+                        <li>Periodic working group updates.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="form-container">
+                <div class="form-switcher">
+                    <button class="switch-btn active" data-target="register">Register Interest</button>
+                    <button class="switch-btn" data-target="call">Request Introductory Discussion</button>
+                </div>
+
+                <!-- REGISTER FORM -->
+                <form id="form-register">
+                    <div class="text-center" style="margin-bottom: 2rem;">
+                        <p style="font-size: 0.85rem;">This is a technical standards activity operating under IEEE SA patent and neutrality policies.</p>
+                    </div>
+                    
+                    <!-- Honeypot -->
+                    <input type="text" id="hp-register" class="hp-field" aria-hidden="true" tabindex="-1" autocomplete="off">
+
+                    <div class="grid" style="grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div class="form-group">
+                            <label for="reg-name" class="required">Full Name</label>
+                            <input type="text" id="reg-name" required autocomplete="name">                        </div>
+                        <div class="form-group">
+                            <label for="reg-org" class="required">Organization</label>
+                            <input type="text" id="reg-org" required autocomplete="organization">                        </div>
+                    </div>
+                    
+                    <div class="grid" style="grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div class="form-group">
+                            <label for="reg-email" class="required">Work Email</label>
+                            <input type="email" id="reg-email" required autocomplete="email">                        </div>
+                        <div class="form-group">
+                            <label for="reg-country" class="required">Country/Region</label>
+                            <input type="text" id="reg-country" required placeholder="e.g. Switzerland (Full Name)" autocomplete="country-name">                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="reg-type" class="required">Stakeholder Type</label>
+                        <select id="reg-type" required>
+                            <option value="">Select...</option>
+                            <option value="Enterprise User / Buyer">Enterprise User / Buyer</option>
+                            <option value="Audit / Assurance">Audit / Assurance</option>
+                            <option value="Vendor / Tech Provider">Vendor / Tech Provider</option>
+                            <option value="Regulator / Civil Society">Regulator / Civil Society</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Participation Tier</label>
+                        <div style="display: flex; gap: 2rem; margin-top: 0.5rem;">
+                            <!-- UPDATED VALUES TO MATCH GOOGLE FORM EXACTLY -->
+                            <label class="checkbox-item"><input type="radio" name="tier" value="Active Drafting (2–4 hrs/week)" checked> Tier 1: Active Drafting</label>
+                            <label class="checkbox-item"><input type="radio" name="tier" value="Advisory / Review (1 hr/month)"> Tier 2: Advisory</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="required">Areas of Interest (Select at least one)</label>
+                        <div class="checkbox-grid">
+                            <label class="checkbox-item"><input type="checkbox" value="SG1: Taxonomy & Definitions"> SG1: Taxonomy & Definitions</label>
+                            <label class="checkbox-item"><input type="checkbox" value="SG2: Metrics & Measurement"> SG2: Metrics & Measurement</label>
+                            <label class="checkbox-item"><input type="checkbox" value="SG3: Controls & Engineering"> SG3: Controls & Engineering</label>
+                            <label class="checkbox-item"><input type="checkbox" value="SG4: Governance Artifacts"> SG4: Governance Artifacts</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-call-notes">Context / Topics</label>
+                        <textarea id="reg-call-notes" rows="4" placeholder="Specific questions..."></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Register Interest</button>
+                    <div id="error-register" class="error-message hidden"></div>
+                    <p class="privacy-note">
+                        <strong>Data Privacy:</strong> Information is collected solely for P7022 Working Group administration. 
+                        Data is processed via Google Forms and will be migrated to IEEE eTools upon committee chartering.
+                    </p>                
+                </form>
+
+                <div id="success-register" class="success-message hidden">
+                    <h3>Registration Received</h3>
+                    <p>Thank you. Registrants will be notified regarding the kickoff meeting upon NesCom approval.</p>
+                    <button class="btn btn-link reset-btn" data-target="register">Submit another response</button>
+                </div>
+
+                <!-- CALL FORM -->
+                <form id="form-call" class="hidden">
+                    <div class="text-center" style="margin-bottom: 2rem;">
+                        <p style="font-size: 0.85rem;">Discussion of scope and standardization process.</p>
+                    </div>
+
+                    <!-- Honeypot -->
+                    <input type="text" id="hp-call" class="hp-field" aria-hidden="true" tabindex="-1" autocomplete="off">
+
+                    <div class="form-group">
+                        <label for="call-name" class="required">Full Name</label>
+                        <input type="text" id="call-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="call-email" class="required">Work Email</label>
+                        <input type="email" id="call-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="call-org">Organization (Optional)</label>
+                        <input type="text" id="call-org">
+                    </div>
+                    <div class="form-group">
+                        <label for="call-time">Preferred Timezone</label>
+                        <input type="text" id="call-time" placeholder="e.g. EST, CET">
+                    </div>
+                    <div class="form-group">
+                        <label for="call-notes">Context / Topics</label>
+                        <textarea id="call-notes" rows="4" placeholder="Specific questions..."></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Request Discussion</button>
+                    <div id="error-call" class="error-message hidden"></div>
+                    <p class="privacy-note">Used solely for working group coordination. Stored via Google Forms.</p>
+                </form>
+
+                <div id="success-call" class="success-message hidden">
+                    <h3>Request Sent</h3>
+                    <p>The Chair will follow up to coordinate scheduling.</p>
+                    <button class="btn btn-link reset-btn" data-target="call">Submit another request</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-dark">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <h5>IEEE P7022 Working Group</h5>
+                    <p style="color: white; margin-top: 0.5rem; font-size: 0.85rem;">
+                        Trustworthy Enterprise Generative AI Working Group (SSIT/SC/TrustGenAI)
+                    </p>
+                    <p style="color: white; margin-top: 1rem; font-size: 0.85rem;">
+                        <strong style="color: white;">Chair:</strong> Driss Lamrani<br>
+                        <a href="mailto:driss.lamrani@golem-tech.ch" style="color: #ccc;">driss.lamrani@golem-tech.ch</a>
+                    </p>
+                </div>
+                <div>
+                    <h5>Affiliated Committees (Subject to IEEE SA confirmation)</h5>
+                    <p style="color: white; margin-bottom: 0.5rem;">IEEE SSIT Standards Committee</p>
+                    <p style="color: white;">IEEE Computer Society / AISC</p>
+                </div>
+                <div>
+                    <h5>Status</h5>
+                    <span class="color: white; footer-note">Proposed IEEE Standard (Submitted for NesCom approval). Participation subject to IEEE SA policies.</span>
+                </div>
+            </div>
+            <div class="divider" style="opacity: 0.1; margin: 3rem 0;"></div>
+            <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: white;">
+                <span>© 2026 Trustworthy Enterprise Generative AI Working Group.</span>
+                <span>IEEE is a registered trademark of the Institute of Electrical and Electronics Engineers, Inc.</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- INTERACTIVITY & FORM LOGIC (v17 Backend) -->
+    <script>
+        const GF = {
+            register: {
+                formId: "1X_d4wo-soYt3dRrhLafytb1zJ3Sd3vhFYXBWUWHiTKQ",
+                endpoint() { return `https://docs.google.com/forms/d/${this.formId}/formResponse`; },
+                entry: {
+                    full_name: "entry.1091756016",
+                    organization: "entry.14090983",
+                    work_email: "entry.1817986551",
+                    country_region: "entry.1208345874",
+                    stakeholder_type: "entry.2064645116",
+                    expertise_areas: "entry.1061839731",
+                    participation_level: "entry.1586958663",
+                    topics_context: "entry.849761183",
+                    consent: "entry.504480585"
+                }
+            },
+            call: {
+                formId: "1sR7092fuZR5k9DaaajNRxRi2ibs0jOCghY2xciZyzis",
+                endpoint() { return `https://docs.google.com/forms/d/${this.formId}/formResponse`; },
+                entry: {
+                    full_name: "entry.1689874412",
+                    work_email: "entry.1885764734",
+                    organization: "entry.1442993127",
+                    preferred_times: "entry.1958188049",
+                    topics_context: "entry.1575061165",
+                    consent: "entry.782459092"
+                }
+            }
+        };
+
+        const CONSENT_TEXT = "I agree that my details may be used only for working group coordination and kickoff communications.";
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Smooth Scroll
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+
+            // Form Switcher
+            document.querySelectorAll('.switch-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const target = e.target.dataset.target;
+                    document.querySelectorAll('.switch-btn').forEach(b => b.classList.remove('active'));
+                    e.target.classList.add('active');
+                    document.getElementById('form-register').classList.add('hidden');
+                    document.getElementById('form-call').classList.add('hidden');
+                    document.getElementById('success-register').classList.add('hidden');
+                    document.getElementById('success-call').classList.add('hidden');
+                    document.getElementById(`form-${target}`).classList.remove('hidden');
+                });
+            });
+
+            // CTA Buttons
+            document.querySelectorAll('.cta-trigger').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const target = e.target.dataset.target;
+                    document.getElementById('engage').scrollIntoView({ behavior: 'smooth' });
+                    document.querySelectorAll('.switch-btn').forEach(b => {
+                        if(b.dataset.target === target) b.click();
+                    });
+                });
+            });
+
+            // Reset Buttons
+            document.querySelectorAll('.reset-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    resetForm(e.target.dataset.target);
+                });
+            });
+
+            // Attach Form Handlers
+            document.getElementById('form-register').addEventListener('submit', handleRegister);
+            document.getElementById('form-call').addEventListener('submit', handleCall);
+        });
+
+        function validateConfig(config) {
+            const regex = /^entry\.\d+$/;
+            for (const key in config.entry) {
+                const val = config.entry[key];
+                if (typeof val === 'string' && !regex.test(val)) return false;
+            }
+            return true;
+        }
+
+        async function handleRegister(e) {
+            e.preventDefault();
+            const form = e.target;
+            const errorBox = document.getElementById('error-register');
+            const btn = form.querySelector('button[type="submit"]');
+            
+            if (document.getElementById('hp-register').value) return; // Honeypot
+
+            errorBox.classList.add('hidden');
+            errorBox.textContent = '';
+
+            const expertiseCheckboxes = form.querySelectorAll('.checkbox-grid input:checked');
+            if (expertiseCheckboxes.length === 0) {
+                errorBox.textContent = "Please select at least one area of expertise/interest.";
+                errorBox.classList.remove('hidden');
+                return;
+            }
+
+            if (!validateConfig(GF.register)) {
+                errorBox.textContent = "Form backend not configured correctly.";
+                errorBox.classList.remove('hidden');
+                return;
+            }
+
+            const formData = new URLSearchParams();
+            const entries = GF.register.entry;
+            
+            formData.append(entries.full_name, document.getElementById('reg-name').value);
+            formData.append(entries.organization, document.getElementById('reg-org').value);
+            formData.append(entries.work_email, document.getElementById('reg-email').value);
+            formData.append(entries.country_region, document.getElementById('reg-country').value);
+            formData.append(entries.stakeholder_type, document.getElementById('reg-type').value);
+            formData.append(entries.topics_context, document.getElementById('reg-call-notes').value);
+
+            expertiseCheckboxes.forEach(cb => {
+                formData.append(entries.expertise_areas, cb.value);
+            });
+            
+            const tier = form.querySelector('input[name="tier"]:checked');
+            if (tier) formData.append(entries.participation_level, tier.value);
+
+            formData.append(entries.consent, CONSENT_TEXT);
+
+            btn.textContent = "Submitting...";
+            btn.disabled = true;
+
+            try {
+                const fallback = new Promise(resolve => setTimeout(resolve, 2000));
+                await Promise.race([
+                    fetch(GF.register.endpoint(), {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        body: formData
+                    }),
+                    fallback
+                ]);
+                form.classList.add('hidden');
+                document.getElementById('success-register').classList.remove('hidden');
+            } catch (err) {
+                console.error("Submission error:", err);
+                errorBox.textContent = "Transmission failed. Please try again later.";
+                errorBox.classList.remove('hidden');
+                btn.textContent = "Register Interest";
+                btn.disabled = false;
+            }
+        }
+
+        async function handleCall(e) {
+            e.preventDefault();
+            const form = e.target;
+            const errorBox = document.getElementById('error-call');
+            const btn = form.querySelector('button[type="submit"]');
+            
+            if (document.getElementById('hp-call').value) return; // Honeypot
+
+            errorBox.classList.add('hidden');
+            errorBox.textContent = '';
+
+            if (!validateConfig(GF.call)) {
+                errorBox.textContent = "Form backend not configured correctly.";
+                errorBox.classList.remove('hidden');
+                return;
+            }
+
+            const formData = new URLSearchParams();
+            const entries = GF.call.entry;
+
+            formData.append(entries.full_name, document.getElementById('call-name').value);
+            formData.append(entries.work_email, document.getElementById('call-email').value);
+            
+            const orgValue = document.getElementById('call-org').value;
+            if (orgValue) formData.append(entries.organization, orgValue);
+            
+            formData.append(entries.preferred_times, document.getElementById('call-time').value);
+            formData.append(entries.topics_context, document.getElementById('call-notes').value);
+            formData.append(entries.consent, CONSENT_TEXT);
+
+            btn.textContent = "Sending...";
+            btn.disabled = true;
+
+            try {
+                const fallback = new Promise(resolve => setTimeout(resolve, 2000));
+                await Promise.race([
+                    fetch(GF.call.endpoint(), {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        body: formData
+                    }),
+                    fallback
+                ]);
+                form.classList.add('hidden');
+                document.getElementById('success-call').classList.remove('hidden');
+            } catch (err) {
+                console.error("Submission error:", err);
+                errorBox.textContent = "Transmission failed. Please try again later.";
+                errorBox.classList.remove('hidden');
+                btn.textContent = "Request Discussion";
+                btn.disabled = false;
+            }
+        }
+
+        function resetForm(type) {
+            const form = document.getElementById(`form-${type}`);
+            const success = document.getElementById(`success-${type}`);
+            const errorBox = document.getElementById(`error-${type}`);
+            const btn = form.querySelector('button[type="submit"]');
+            
+            form.reset();
+            success.classList.add('hidden');
+            errorBox.classList.add('hidden');
+            form.classList.remove('hidden');
+            
+            btn.disabled = false;
+            btn.textContent = type === 'register' ? 'Register Interest' : 'Request Discussion';
+        }
+    </script>
+</body>
+</html>
