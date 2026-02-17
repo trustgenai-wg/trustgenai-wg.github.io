@@ -166,7 +166,14 @@
         .header-inner { display: flex; justify-content: space-between; align-items: center; }
         .logo { font-weight: 800; font-size: 1.25rem; letter-spacing: -0.04em; color: var(--text-primary); }
         .logo span { color: var(--accent); }
-        
+        .logo-sub{
+            display:block;
+            margin-top:0.15rem;
+            font-size:0.72rem;
+            font-weight:600;
+            letter-spacing:0;
+            color: var(--text-secondary);
+          }          
         .nav-links { display: flex; gap: 2rem; align-items: center; }
         .nav-link { font-size: 0.9rem; font-weight: 500; color: var(--text-secondary); position: relative; transition: color 0.2s; }
         .nav-link:hover { color: var(--accent); }
@@ -380,14 +387,16 @@
     <!-- DISCLAIMER BAR -->
     <div class="disclaimer-banner">
         <div class="container">
-            Proposed IEEE Standard P7022 (Submitted for NesCom approval). Participation subject to IEEE SA policies.
+            IEEE P7022 is a proposed IEEE SA standards project submitted for NesCom approval (anticipated March 2026). This page is a pre-approval information & interest intake portal; participation follows IEEE SA policies upon chartering.
         </div>
     </div>
 
     <!-- HEADER -->
     <header>
         <div class="container header-inner">
-            <a href="#" class="logo">IEEE <span>P7022</span></a>
+            <a href="#" class="logo">IEEE <span>P7022</span>
+                <span class="logo-sub">Proposed IEEE Standards Project — Pending NesCom approval (anticipated March 2026)</span>
+            </a>
             <nav class="nav-links">
                 <a href="#coalition" class="nav-link">Coalition</a>
                 <a href="#architecture" class="nav-link">Architecture</a>
@@ -637,6 +646,9 @@
                 <form id="form-register">
                     <div class="text-center" style="margin-bottom: 2rem;">
                         <p style="font-size: 0.85rem;">This is a technical standards activity operating under IEEE SA patent and neutrality policies.</p>
+                        <p style="font-size: 0.85rem;">
+                            Pre-approval interest intake — formal IEEE SA Working Group participation begins upon project approval/chartering.
+                          </p>                          
                     </div>
                     
                     <!-- Honeypot -->
@@ -697,8 +709,8 @@
                     <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Register Interest</button>
                     <div id="error-register" class="error-message hidden"></div>
                     <p class="privacy-note">
-                        <strong>Data Privacy:</strong> Information is collected solely for P7022 Working Group administration. 
-                        Data is processed via Google Forms and will be migrated to IEEE eTools upon committee chartering.
+                        <strong>Data Privacy:</strong> Information is collected solely for coordination of the proposed IEEE P7022 project.
+                        Data is processed via Google Forms and will be migrated to IEEE SA tooling upon chartering. Deletion available upon request.
                     </p>                
                 </form>
 
@@ -740,12 +752,12 @@
 
                     <button type="submit" class="btn btn-primary" style="width: 100%;">Request Discussion</button>
                     <div id="error-call" class="error-message hidden"></div>
-                    <p class="privacy-note">Used solely for working group coordination. Stored via Google Forms.</p>
+                    <p class="privacy-note">Used solely for coordination of the proposed IEEE P7022 working group (pending chartering). Stored via Google Forms.</p>
                 </form>
 
                 <div id="success-call" class="success-message hidden">
                     <h3>Request Sent</h3>
-                    <p>The Chair will follow up to coordinate scheduling.</p>
+                    <p>The proposed chair will follow up to coordinate scheduling.</p>
                     <button class="btn btn-link reset-btn" data-target="call">Submit another request</button>
                 </div>
             </div>
@@ -757,13 +769,13 @@
         <div class="container">
             <div class="footer-grid">
                 <div>
-                    <h5>IEEE P7022 Working Group</h5>
+                    <h5>IEEE P7022 (Proposed) — Pre-Approval Portal</h5>
                     <p style="color: white; margin-top: 0.5rem; font-size: 0.85rem;">
                         Trustworthy Enterprise Generative AI Working Group (SSIT/SC/TrustGenAI)
                     </p>
                     <p style="color: white; margin-top: 1rem; font-size: 0.85rem;">
-                        <strong style="color: white;">Chair:</strong> Driss Lamrani<br>
-                        <a href="mailto:driss.lamrani@golem-tech.ch" style="color: #ccc;">driss.lamrani@golem-tech.ch</a>
+                        <strong style="color: white;">Proposed Chair (pending approval):</strong> <br/>Driss Lamrani<br>
+                        <a href="mailto:driss.lamrani@golem-tech.ch" style="color: white;">driss.lamrani@golem-tech.ch</a>
                     </p>
                 </div>
                 <div>
@@ -773,7 +785,7 @@
                 </div>
                 <div>
                     <h5>Status</h5>
-                    <span class="color: white; footer-note">Proposed IEEE Standard (Submitted for NesCom approval). Participation subject to IEEE SA policies.</span>
+                    <span class="footer-note">Proposed IEEE Standard (Submitted for NesCom approval). Participation subject to IEEE SA policies.</span>
                 </div>
             </div>
             <div class="divider" style="opacity: 0.1; margin: 3rem 0;"></div>
