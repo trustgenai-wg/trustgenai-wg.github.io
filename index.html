@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IEEE P7022 | Trustworthy Enterprise GenAI Standard</title>
-    <meta name="description" content="IEEE P7022: Specifying the engineering audit layer and conformance evidence criteria for Enterprise Generative and Agentic AI.">
+    <title>Proposed IEEE P7022 | Enterprise GenAI Audit Evidence Standard</title>
+    <meta name="description" content="Proposed IEEE P7022: Specifying the engineering audit layer and conformance evidence criteria for Enterprise Generative and Agentic AI.">
     <style>
-        /* --- EXECUTIVE DESIGN SYSTEM (MCKINSEY / IEEE STYLE - v21) --- */
+        /* --- EXECUTIVE DESIGN SYSTEM --- */
         :root {
             --bg-body: #ffffff;
             --bg-offset: #f7f9fa;
@@ -19,7 +19,7 @@
             --text-inverse: #ffffff;
             --text-inverse-muted: #a0a0a0;
             
-            /* DEEP NAVY AUTHORITY COLOR (v18 spec) */
+            /* DEEP NAVY AUTHORITY COLOR */
             --accent: #002855; 
             --accent-dark: #001f42;
             --accent-subtle: rgba(0, 40, 85, 0.05);
@@ -64,7 +64,6 @@
 
         a { text-decoration: none; color: inherit; transition: color 0.2s ease; }
         
-        /* Accessibility: Focus Visible */
         a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { 
             outline: 2px solid var(--accent); outline-offset: 2px; 
         }
@@ -72,7 +71,6 @@
         /* --- TYPOGRAPHY --- */
         h1, h2, h3, h4, h5 { font-weight: 700; letter-spacing: -0.02em; line-height: 1.15; color: var(--text-primary); }
         
-        /* H1: Primary text color for executive feel, not accent color */
         h1 { font-size: clamp(2.5rem, 5vw, 3.5rem); margin-bottom: 1.5rem; letter-spacing: -0.03em; color: var(--text-primary); }
         h2 { font-size: 2rem; margin-bottom: 1.5rem; letter-spacing: -0.025em; border-bottom: 2px solid var(--border-light); padding-bottom: 0.5rem; display: inline-block; }
         h3 { font-size: 1.25rem; margin-bottom: 0.75rem; font-weight: 600; }
@@ -181,7 +179,7 @@
         /* --- HERO --- */
         .hero { padding: 6rem 0 4rem; }
         
-        /* EXECUTIVE MEMO STYLE FOMO BOX (Grey/Navy) */
+        /* EXECUTIVE MEMO STYLE FOMO BOX */
         .fomo-box {
             background: #f0f2f5;
             border-left: 4px solid var(--accent);
@@ -269,11 +267,12 @@
         .arch-layer:last-child::after { display: none; }
         .arch-layer span { display: block; font-size: 0.75rem; font-weight: 400; opacity: 0.8; margin-top: 0.25rem; }
 
-        /* --- SCOPE & EVIDENCE --- */
+        /* --- EVIDENCE & CODE UI --- */
         .evidence-table { width: 100%; border-collapse: collapse; margin-top: 2rem; background: white; border: 1px solid var(--border-light); }
         .evidence-table th, .evidence-table td { text-align: left; padding: 1rem; border-bottom: 1px solid var(--border-light); font-size: 0.95rem; }
         .evidence-table th { background: var(--bg-offset); font-weight: 600; color: var(--accent); }
         
+        .code-wrapper { position: relative; margin-top: 0.5rem; }
         .code-example {
             background: #1e1e1e;
             border: 1px solid #333;
@@ -283,8 +282,21 @@
             font-size: 0.85rem;
             color: #d4d4d4;
             overflow-x: auto;
-            margin-top: 0.5rem;
             line-height: 1.5;
+        }
+        .audit-badge {
+            position: absolute;
+            top: -12px;
+            right: 20px;
+            background: #c53030;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            border: 1px solid white;
         }
         .key { color: #9cdcfe; }
         .string { color: #ce9178; }
@@ -307,7 +319,7 @@
         }
         .tier-card.featured { border: 2px solid var(--accent); }
         .tier-card.featured::after {
-            content: "Technical Track";
+            content: "Primary Track";
             position: absolute;
             top: 0;
             right: 0;
@@ -384,21 +396,22 @@
 </head>
 <body>
 
-    <!-- DISCLAIMER BAR -->
+    <!-- DISCLAIMER BAR (LEGAL REQUIREMENT) -->
     <div class="disclaimer-banner">
         <div class="container">
-            IEEE P7022 is a proposed IEEE SA standards project submitted for NesCom approval (anticipated March 2026). This page is a pre-approval information & interest intake portal; participation follows IEEE SA policies upon chartering.
+            <strong>Proposed Project:</strong> IEEE P7022 is a proposed standard submitted to NesCom for approval (anticipated March 2026). This portal is for pre-charter awareness and non-binding interest intake only.
         </div>
     </div>
 
     <!-- HEADER -->
     <header>
         <div class="container header-inner">
-            <a href="#" class="logo">IEEE <span>P7022</span>
-                <span class="logo-sub">Proposed IEEE Standards Project — Pending NesCom approval (anticipated March 2026)</span>
+            <!-- UPDATED: Explicit "Proposed" text to avoid Trademark infringement -->
+            <a href="#" class="logo">Proposed <span>IEEE P7022</span>
+                <span class="logo-sub">Engineering Trustworthy Enterprise GenAI</span>
             </a>
             <nav class="nav-links">
-                <a href="#coalition" class="nav-link">Coalition</a>
+                <a href="#coalition" class="nav-link">Representation</a>
                 <a href="#architecture" class="nav-link">Architecture</a>
                 <a href="#evidence" class="nav-link">Evidence</a>
                 <a href="#engage" class="btn btn-primary btn-sm cta-trigger" data-target="register">Register Interest</a>
@@ -410,74 +423,74 @@
     <section class="hero">
         <div class="container">
             <div class="fomo-box">
-                Standards development establishes common technical baselines. Participation enables contribution of operational perspectives within the IEEE SA consensus process.
+                Executive Brief: Turning “Trustworthy AI” into audit-ready evidence.
             </div>
 
             <h1>From Principles to Proof: The Engineering Standard for Auditable AI.</h1>
             <p class="lead">
-                IEEE P7022 defines the ‘SHALL’ requirements that translate ‘Trustworthy AI’ principles into demonstrable engineering evidence.
+                IEEE P7022 defines the ‘SHALL’ requirements that translate ‘Trustworthy AI’ principles into demonstrable engineering evidence for regulatory and liability defense.
             </p>
             
             <div style="display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap;">
-                <button class="btn btn-primary cta-trigger" data-target="register">Register Interest to Participate</button>
-                <button class="btn btn-secondary cta-trigger" data-target="call">Request Introductory Discussion</button>
+                <button class="btn btn-primary cta-trigger" data-target="register">Register Interest — Drafting Track</button>
+                <button class="btn btn-secondary cta-trigger" data-target="call">Request a 15-minute Briefing</button>
             </div>
             <p style="font-size: 0.75rem; color: var(--text-tertiary); margin-top: 0.75rem; font-style: italic;">
-                * Formal Working Group kickoff is scheduled for April 2026, subject to NesCom approval (expected by March 2026).
+                * Formal IEEE SA Working Group participation begins only after NesCom approval and chartering.
             </p>
             <!-- Executive Micro Strip -->
             <div class="hero-micro-strip">
-                <span>Engineering criteria for conformance evaluation</span>
-                <span>Audit evidence specifications</span>
+                <span>Conformance criteria for insurance underwriting</span>
+                <span>Forensic audit trails</span>
                 <span>Agentic system traceability</span>
             </div>
             
-            <!-- Board Level Summary -->
+            <!-- Board Level Summary (UPDATED: LIABILITY FOCUS) -->
             <div style="margin-top: 3rem; padding: 1.5rem; background: var(--bg-offset); border: 1px solid var(--border-light); border-radius: var(--radius-md);">
                 <h4 style="color: var(--accent); margin-bottom: 0.5rem;">Board-Level 30-second Summary</h4>
                 <p style="font-size: 0.95rem; margin-bottom: 0;">
-                    <strong>Problem:</strong> Current AI governance (ISO 42001, NIST) is high-level process. It lacks engineering specificity for GenAI errors.<br>
-                    <strong>Solution:</strong> P7022 standardizes trace artifacts (logs, metadata) to facilitate documented auditability and support alignment with regulatory risk frameworks.
+                    <strong>The Risk:</strong> Current AI governance frameworks are largely process-based; P7022 adds the engineering evidence layer required for auditability and defensibility.<br>
+                    <strong>The Solution:</strong> P7022 standardizes the <em>Forensic Artifacts</em> (logs, metadata). This enables auditable defense, potentially reducing liability insurance premiums and ensuring regulatory defensibility.
                 </p>
             </div>
         </div>
     </section>
 
-    <!-- COALITION SECTION -->
+    <!-- COALITION SECTION (UPDATED: ANTITRUST SAFE) -->
     <section id="coalition" class="section-padding bg-offset">
         <div class="container">
             <div class="divider-short"></div>
             <h2>Stakeholder Representation</h2>
-            <p>Pre-approval outreach to ensure balanced representation across all interest categories.</p>
+            <p>Ensuring the standard addresses operational realities across regulated sectors.</p>
             
             <div class="coalition-grid">
                 <div>
-                    <h4 style="border-bottom: 1px solid var(--border-strong); padding-bottom: 0.5rem;">Seeking Anchor Pilots In</h4>                    <ul class="coalition-list" style="list-style: none;">
-                        <li>Finance & Banking</li>
-                        <li>Insurance (Liability & Carrier)</li>
+                    <!-- UPDATED: Removed "Anchor Pilot" to avoid exclusivity implications -->
+                    <h4 style="border-bottom: 1px solid var(--border-strong); padding-bottom: 0.5rem;">Prioritized Use Case Verticals</h4>
+                    <ul class="coalition-list" style="list-style: none;">
+                        <li>Finance & Banking (Audit Trails)</li>
+                        <li>Insurance (Liability Definition)</li>
                         <li>Healthcare & Life Sciences</li>
-                        <li>Defense & Aerospace</li>
-                        <li>Public Sector & GovTech</li>
+                        <li>Defense & Public Sector</li>
                         <li>Manufacturing & Logistics</li>
                         <li>SaaS / ERP Vendors</li>
                     </ul>
                 </div>
                 <div>
-                    <h4 style="border-bottom: 1px solid var(--border-strong); padding-bottom: 0.5rem;">Required Functions</h4>
+                    <h4 style="border-bottom: 1px solid var(--border-strong); padding-bottom: 0.5rem;">Required Expertise</h4>
                     <ul class="coalition-list" style="list-style: none;">
-                        <li>CIO / CTO / Chief Data Officer</li>
+                        <li>CIO / Chief Data Officer</li>
                         <li>Chief Risk Officer (CRO)</li>
                         <li>Internal Audit & Assurance</li>
-                        <li>Big-4 Assurance Partners</li>
                         <li>Product Security & Trust</li>
-                        <li>Enterprise Architecture</li>
-                        <li>Legal & Compliance Counsel</li>
+                        <li>Legal Counsel (Liability/IP)</li>
                     </ul>
                 </div>
             </div>
 
             <div class="anchor-strategy">
-                The working group strategy includes technical feasibility pilots involving audit and enterprise participants.
+                <span style="display:block; font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.5rem;">Policy Statement</span>
+                Participation in the IEEE P7022 Working Group is open to all interested parties upon chartering, regardless of industry or geography.
             </div>
         </div>
     </section>
@@ -486,8 +499,8 @@
     <section id="architecture" class="section-padding">
         <div class="container">
             <div class="text-center" style="margin-bottom: 3rem;">
-                <h2>The Standards Stack</h2>
-                <p style="margin: 0 auto;">Where IEEE P7022 fits in the global regulatory landscape.</p>
+                <h2>The Regulatory Stack</h2>
+                <p style="margin: 0 auto;">Positioning P7022 within the global compliance landscape.</p>
             </div>
             
             <div class="arch-stack">
@@ -496,16 +509,12 @@
                     <span>The Law: Mandates transparency and risk management.</span>
                 </div>
                 <div class="arch-layer">
-                    ISO 42001
+                    ISO 42001 / NIST AI RMF
                     <span>The Management System: Policies, roles, and lifecycle processes.</span>
                 </div>
-                <div class="arch-layer">
-                    NIST AI RMF
-                    <span>The Framework: Mapping, measuring, and managing risk categories.</span>
-                </div>
                 <div class="arch-layer highlight">
-                    IEEE P7022
-                    <span>The Engineering Standard: Technical controls, log formats, and audit trails.</span>
+                    IEEE P7022 (The Engineering Bridge)
+                    <span>The Technical Standard: Controls, log formats, and audit trails.</span>
                 </div>
                 <div class="arch-layer" style="border-style: dashed;">
                     Conformance Evidence Bundle
@@ -515,21 +524,25 @@
         </div>
     </section>
 
-    <!-- EVIDENCE SECTION -->
+    <!-- EVIDENCE SECTION (UPDATED: VERDICT VISUAL) -->
     <section id="evidence" class="section-padding bg-offset">
         <div class="container">
             <div class="divider-short"></div>
             <h2>Technical Focus: Forensic Evidence</h2>
-            <p>We move beyond "accuracy metrics" to forensic logs of failures. P7022 standardizes the JSON schema for failure containment, supporting evaluation of control efficacy.</p>
+            <p>Moving beyond "accuracy metrics" to forensic logs of failures. P7022 standardizes the schema for failure containment, allowing auditors to verify control efficacy.</p>
 
-            <span class="text-small" style="display:block; margin-top: 1rem; font-family:var(--font-mono); font-size:0.75rem; color:#888;">Illustrative (Non-normative)</span>
-            <div class="code-example">
+            <span class="text-small" style="display:block; margin-top: 1rem; font-family:var(--font-mono); font-size:0.75rem; color:#888;">Illustrative Audit Artifact (JSON)</span>
+            
+            <div class="code-wrapper">
+                <!-- VISUAL VERDICT BADGE -->
+                <div class="audit-badge">
+                    Audit Status: BLOCK_OUTPUT (example control reference)
+                </div>
+                <div class="code-example">
 <pre>{
   <span class="key">"trace_id"</span>: <span class="string">"evt_77a-9f2-b11"</span>,
-  <span class="key">"timestamp"</span>: <span class="string">"2026-03-14T09:22:15.04Z"</span>,
+  <span class="key">"timestamp"</span>: <span class="string">"YYYY-MM-DDTHH:MM:SS.00Z"</span>,
   <span class="key">"model_vendor"</span>: <span class="string">"Vendor_X"</span>,
-  <span class="key">"model_version"</span>: <span class="string">"v3.5-turbo-instruct"</span>,
-  <span class="key">"evidence_bundle_id"</span>: <span class="string">"bndl_8829_alpha"</span>,
   <span class="key">"integrity_check"</span>: {
     <span class="key">"status"</span>: <span class="string">"ESCALATED"</span>,
     <span class="key">"reason"</span>: <span class="string">"UNSUPPORTED_CLAIM_DETECTED"</span>
@@ -541,13 +554,13 @@
     <span class="key">"source_grounding_score"</span>: <span class="number">0.12</span>,
     <span class="key">"threshold"</span>: <span class="number">0.85</span>
   },
-  <span class="key">"decision_latency_ms"</span>: <span class="number">450</span>,
   <span class="key">"action_taken"</span>: <span class="alert">"BLOCK_OUTPUT_Ref_Policy_7022_Sec_4.2"</span>
 }</pre>
+                </div>
             </div>
 
-            <h3 style="margin-top: 3rem;">Controls & Evidence Mapping</h3>
-            <p>Standardized artifacts for deployment authorization.</p>
+            <h3 style="margin-top: 3rem;">From "Black Box" to "Auditable Asset"</h3>
+            <p>Standardized artifacts transform stochastic behavior into verifiable engineering records.</p>
             <div style="overflow-x: auto; -webkit-overflow-scrolling: touch; border: 1px solid var(--border-light); border-radius: var(--radius-sm);">
                 <table class="evidence-table" style="border: none; margin: 0;">                <thead>
                     <tr>
@@ -562,7 +575,7 @@
                     </tr>
                     <tr>
                         <td>Action Traceability (Agents)</td>
-                        <td>Immutable Trace Logs (tamper-evident integrity)</td>
+                        <td>Immutable Trace Logs (Tamper-Evident)</td>
                     </tr>
                     <tr>
                         <td>Low-Confidence Escalation</td>
@@ -598,7 +611,7 @@
                     <ul style="list-style: none; color: var(--text-secondary);">
                         <li style="margin-bottom:0.5rem;"><strong>Mar 2026:</strong> NesCom Vote (Pending)</li>
                         <li style="margin-bottom:0.5rem;"><strong>Apr/May 2026:</strong> Working Group Kickoff</li>
-                        <li style="margin-bottom:0.5rem;"><strong>2026–2028:</strong> Drafting & Anchor Piloting</li>
+                        <li style="margin-bottom:0.5rem;"><strong>2026–2028:</strong> Drafting & pilot implementations (use-case driven)</li>
                         <li style="margin-bottom:0.5rem;"><strong>Jun 2028:</strong> Initial Ballot</li>
                         <li style="margin-bottom:0.5rem;"><strong>Dec 2028:</strong> RevCom Approval</li>
                     </ul>
@@ -611,22 +624,22 @@
     <section id="engage" class="section-padding form-section">
         <div class="container">
             <div class="text-center" style="margin-bottom: 2rem;">
-                <h2>Engagement Models</h2>
+                <h2>Participation Modes</h2>
                 <p>Participation is open to all materially interested parties and follows IEEE SA consensus processes.</p>
             </div>
             
             <div class="tiers-grid" style="margin-bottom: 4rem;">
                 <div class="tier-card featured">
-                    <h3>Tier 1: Active Drafting</h3>
+                    <h3>Drafting Track (Active Contributors)</h3>
                     <div style="font-style: italic; color: var(--text-secondary); margin-bottom: 1rem;">2–4 hrs/week</div>
                     <ul class="coalition-list" style="list-style: none;">
-                        <li>Participation in development of draft criteria through IEEE SA consensus process.</li>
-                        <li>Voting rights subject to IEEE SA policies.</li>
-                        <li>Author credit on the standard.</li>
+                        <li>Direct contribution to technical criteria.</li>
+                        <li>Voting participation follows IEEE SA processes (post-charter).</li>
+                        <li>Contributor recognition follows IEEE SA publication practices.</li>
                     </ul>
                 </div>
                 <div class="tier-card">
-                    <h3>Tier 2: Advisory / Review</h3>
+                    <h3>Review Track (Advisors & Commenters)</h3>
                     <div style="font-style: italic; color: var(--text-secondary); margin-bottom: 1rem;">1 hr/month</div>
                     <ul class="coalition-list" style="list-style: none;">
                         <li>Visibility into draft development progress.</li>
@@ -639,7 +652,7 @@
             <div class="form-container">
                 <div class="form-switcher">
                     <button class="switch-btn active" data-target="register">Register Interest</button>
-                    <button class="switch-btn" data-target="call">Request Introductory Discussion</button>
+                    <button class="switch-btn" data-target="call">Request Briefing</button>
                 </div>
 
                 <!-- REGISTER FORM -->
@@ -647,7 +660,7 @@
                     <div class="text-center" style="margin-bottom: 2rem;">
                         <p style="font-size: 0.85rem;">This is a technical standards activity operating under IEEE SA patent and neutrality policies.</p>
                         <p style="font-size: 0.85rem;">
-                            Pre-approval interest intake — formal IEEE SA Working Group participation begins upon project approval/chartering.
+                            Pre-charter interest intake — IEEE SA Working Group participation and roles begin only after project approval and chartering.
                           </p>                          
                     </div>
                     
@@ -687,8 +700,8 @@
                         <label>Participation Tier</label>
                         <div style="display: flex; gap: 2rem; margin-top: 0.5rem;">
                             <!-- UPDATED VALUES TO MATCH GOOGLE FORM EXACTLY -->
-                            <label class="checkbox-item"><input type="radio" name="tier" value="Active Drafting (2–4 hrs/week)" checked> Tier 1: Active Drafting</label>
-                            <label class="checkbox-item"><input type="radio" name="tier" value="Advisory / Review (1 hr/month)"> Tier 2: Advisory</label>
+                            <label class="checkbox-item"><input type="radio" name="tier" value="Drafting Track (2–4 hrs/week)" checked> Drafting Track</label>
+                            <label class="checkbox-item"><input type="radio" name="tier" value="Review Track (1 hr/month)"> Review Track</label>
                         </div>
                     </div>
 
@@ -706,16 +719,17 @@
                         <textarea id="reg-call-notes" rows="4" placeholder="Specific questions..."></textarea>
                     </div>
 
-                    <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Register Interest</button>
+                    <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Submit Interest</button>
                     <div id="error-register" class="error-message hidden"></div>
                     <p class="privacy-note">
                         <strong>Data Privacy:</strong> Information is collected solely for coordination of the proposed IEEE P7022 project.
                         Data is processed via Google Forms and will be migrated to IEEE SA tooling upon chartering. Deletion available upon request.
+                        Access is restricted to the proposed chair for coordination purposes only.
                     </p>                
                 </form>
 
                 <div id="success-register" class="success-message hidden">
-                    <h3>Registration Received</h3>
+                    <h3>Interest Registered</h3>
                     <p>Thank you. Registrants will be notified regarding the kickoff meeting upon NesCom approval.</p>
                     <button class="btn btn-link reset-btn" data-target="register">Submit another response</button>
                 </div>
@@ -750,9 +764,9 @@
                         <textarea id="call-notes" rows="4" placeholder="Specific questions..."></textarea>
                     </div>
 
-                    <button type="submit" class="btn btn-primary" style="width: 100%;">Request Discussion</button>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Request Briefing</button>
                     <div id="error-call" class="error-message hidden"></div>
-                    <p class="privacy-note">Used solely for coordination of the proposed IEEE P7022 working group (pending chartering). Stored via Google Forms.</p>
+                    <p class="privacy-note">Used solely for coordination of the proposed IEEE P7022 project. Data is processed via Google Forms and will be migrated to IEEE SA tooling upon chartering. Deletion available upon request. Access is restricted to the proposed chair for coordination purposes only.</p>
                 </form>
 
                 <div id="success-call" class="success-message hidden">
@@ -771,7 +785,7 @@
                 <div>
                     <h5>IEEE P7022 (Proposed) — Pre-Approval Portal</h5>
                     <p style="color: white; margin-top: 0.5rem; font-size: 0.85rem;">
-                        Trustworthy Enterprise Generative AI Working Group (SSIT/SC/TrustGenAI)
+                        Trustworthy Enterprise Generative AI — IEEE P7022 (Proposed)
                     </p>
                     <p style="color: white; margin-top: 1rem; font-size: 0.85rem;">
                         <strong style="color: white;">Proposed Chair (pending approval):</strong> <br/>Driss Lamrani<br>
@@ -779,18 +793,18 @@
                     </p>
                 </div>
                 <div>
-                    <h5>Affiliated Committees (Subject to IEEE SA confirmation)</h5>
-                    <p style="color: white; margin-bottom: 0.5rem;">IEEE SSIT Standards Committee</p>
-                    <p style="color: white;">IEEE Computer Society / AISC</p>
+                    <h5>Sponsorship & Liaisons</h5>
+                    <p style="color: white; margin-bottom: 0.5rem;">Sponsor: IEEE SSIT Standards Committee (sponsorship approved; pending NesCom)</p>
+                    <p style="color: white;">Liaison discussions: IEEE Computer Society and other interested IEEE groups</p>
                 </div>
                 <div>
                     <h5>Status</h5>
-                    <span class="footer-note">Proposed IEEE Standard (Submitted for NesCom approval). Participation subject to IEEE SA policies.</span>
+                    <span class="footer-note">Proposed IEEE Standard (Submitted to NesCom for approval). Participation subject to IEEE SA policies.</span>
                 </div>
             </div>
             <div class="divider" style="opacity: 0.1; margin: 3rem 0;"></div>
             <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: white;">
-                <span>© 2026 Trustworthy Enterprise Generative AI Working Group.</span>
+                <span>© 2026 IEEE P7022 (Proposed).</span>
                 <span>IEEE is a registered trademark of the Institute of Electrical and Electronics Engineers, Inc.</span>
             </div>
         </div>
@@ -949,7 +963,7 @@
                 console.error("Submission error:", err);
                 errorBox.textContent = "Transmission failed. Please try again later.";
                 errorBox.classList.remove('hidden');
-                btn.textContent = "Register Interest";
+                btn.textContent = "Submit Interest";
                 btn.disabled = false;
             }
         }
@@ -1003,7 +1017,7 @@
                 console.error("Submission error:", err);
                 errorBox.textContent = "Transmission failed. Please try again later.";
                 errorBox.classList.remove('hidden');
-                btn.textContent = "Request Discussion";
+                btn.textContent = "Request Briefing";
                 btn.disabled = false;
             }
         }
@@ -1020,7 +1034,7 @@
             form.classList.remove('hidden');
             
             btn.disabled = false;
-            btn.textContent = type === 'register' ? 'Register Interest' : 'Request Discussion';
+            btn.textContent = type === 'register' ? 'Submit Interest' : 'Request Briefing';
         }
     </script>
 </body>
